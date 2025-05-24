@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-
-import { UserService } from '../service/user.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-
-import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../service/auth.service';
 import { CommonModule } from '@angular/common';
-import { UserInfo } from '../model/user-info';
-import { ExerciseService } from '../service/exercise.service';
-import { ExerciseResponse } from '../model/exercise-response';
-import { ChangePasswordResponse } from '../model/change-passwords-response';
-import { ErrorService } from '../service/error.service';
+import { RouterLink, Router } from '@angular/router';
+import { ChangePasswordResponse } from '../../model/change-passwords-response';
+import { ExerciseResponse } from '../../model/exercise-response';
+import { UserInfo } from '../../model/user-info';
+import { AuthService } from '../../service/auth.service';
+import { ErrorService } from '../../service/error.service';
+import { ExerciseService } from '../../service/exercise.service';
+import { UserService } from '../../service/user.service';
+
 
 @Component({
   selector: 'app-personalpage',
@@ -28,6 +27,7 @@ export class PersonalpageComponent implements OnInit {
   };
 
   exercisenames: ExerciseResponse[] = [];
+  changeFailed: boolean = false;
 
   constructor(
     private userservice: UserService,
@@ -99,6 +99,7 @@ export class PersonalpageComponent implements OnInit {
   }
 
   onSubmit():void{
+    this.changeFailed = false;
     if (this.passwords.valid && this.passwords.value.oldpassword && this.passwords.value.newpassword){
       this.passwordsresponse.oldPassword = this.passwords.value.oldpassword;
       this.passwordsresponse.newPassword = this.passwords.value.newpassword;
@@ -108,6 +109,7 @@ export class PersonalpageComponent implements OnInit {
           this.passwords.reset();
         },
         error: (error) => {
+          this.changeFailed = true;
           console.error("El usuario no existe: ", error); 
         }
       });
