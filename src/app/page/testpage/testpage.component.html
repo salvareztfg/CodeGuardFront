@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-4 mb-4">
   <div class="row justify-content-center">
     <div class="col-12 d-flex justify-content-center mb-2">
       <div class="card problem-card text-center title-card">
@@ -36,11 +36,10 @@
         <div class="card problem-card text-center">
           <div class="card-body">
             <h6 class="card-title">Stack Trace</h6>
-            <pre class="card-text stack-trace">{{ stackTrace }}</pre>
+            <div class="card-body-stacktrace">
+              <pre class="card-text stack-trace">{{ stackTrace }}</pre>
+            </div>
           </div>
-        </div>
-        <div class="d-flex justify-content-center mt-4">
-          <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
         </div>
       </div>
       <div class="col-7"> 
@@ -52,7 +51,15 @@
         </div>
       </div>      
     </div>
-    <div class="col-12 d-flex justify-content-end">
+    <div class="col-12 d-flex mt-5">
+      <div class=" col-5">
+        <div class="card problem-card text-center">
+          <div class="card-body">
+            <h6 class="card-title">Placeholder</h6>
+            <textarea id="placeholderEditor" class="form-control" [(ngModel)]="exercisePlaceHolder" rows="5" placeholder="Put ur placeholder here"></textarea> 
+          </div>
+        </div>
+      </div>
       <div class="col-7">
         <div class="card problem-card text-center">
           <div class="card-body">
@@ -60,15 +67,8 @@
             <textarea id="codeEditor" class="form-control" [(ngModel)]="userTestsCode" rows="20" placeholder="Put ur tests here"></textarea> 
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-12 d-flex justify-content-end  mb-5">
-      <div class="col-7 mt-5">
-        <div class="card problem-card text-center">
-          <div class="card-body">
-            <h6 class="card-title">Placeholder</h6>
-            <textarea id="placeholderEditor" class="form-control" [(ngModel)]="exercisePlaceHolder" rows="5" placeholder="Put ur placeholder here"></textarea> 
-          </div>
+        <div class="d-flex justify-content-center mt-4">
+          <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
         </div>
       </div>
     </div>

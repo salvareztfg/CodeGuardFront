@@ -34,10 +34,15 @@
     font-size: 1.5rem; 
 }
 
+.card-body-stacktrace{
+    border: 2px solid #6b5278;
+}
+
 .card-text {
     text-align: left;
     color: #d6d6d6;
     font-size: large;
+    padding: 10px;
 }
 
 .stack-trace {
