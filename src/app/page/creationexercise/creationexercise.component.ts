@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { CreateExerciseRequest } from '../../model/create-exercise-request';
 import { ExerciseService } from '../../service/exercise.service';
+import { ErrorService } from '../../service/error.service';
 
 @Component({
   selector: 'app-creationexercise',
@@ -17,7 +18,8 @@ export class CreationExerciseComponent implements OnInit{
 
   constructor(private fb: FormBuilder,
     private exerciseservice: ExerciseService,
-    private router: Router
+    private router: Router,
+    private errorService: ErrorService
   ) { }
 
   exercise =  this.fb.group({
@@ -53,6 +55,8 @@ export class CreationExerciseComponent implements OnInit{
         },
         error: (error)=>{
           console.error("Error al crear el problema: ",error);
+          this.errorService.changeData({code: error.status, message: "Your problem could not be created"});
+          this.router.navigate(['/error']);
         }
       })
     }

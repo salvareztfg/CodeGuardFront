@@ -5,16 +5,15 @@ import { RouterLink, Router } from '@angular/router';
 import { ChangePasswordResponse } from '../../model/change-passwords-response';
 import { ExerciseResponse } from '../../model/exercise-response';
 import { UserInfo } from '../../model/user-info';
-import { AuthService } from '../../service/auth.service';
-import { ErrorService } from '../../service/error.service';
 import { ExerciseService } from '../../service/exercise.service';
 import { UserService } from '../../service/user.service';
+import { DeleteModalComponent } from "../../delete-modal/delete-modal.component";
 
 
 @Component({
   selector: 'app-personalpage',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, RouterLink, ReactiveFormsModule, DeleteModalComponent],
   templateUrl: './personalpage.component.html',
   styleUrls: ['./personalpage.component.css']
 })
@@ -28,14 +27,14 @@ export class PersonalpageComponent implements OnInit {
 
   exercisenames: ExerciseResponse[] = [];
   changeFailed: boolean = false;
+  showModal: boolean = false;
+
 
   constructor(
     private userservice: UserService,
     private router: Router,
-    private authservice: AuthService,
     private exerciseservice: ExerciseService,
     private fb: FormBuilder,
-    private errorService: ErrorService
   ) {}
 
   passwords = this.fb.group({
@@ -49,20 +48,12 @@ export class PersonalpageComponent implements OnInit {
   };
 
 
-  deleteThisUser(): void {
-    this.userservice.deleteLoggedUser().subscribe({
-      next: (response) => {
-        localStorage.clear();
-        console.log("Deleted user:", response);
-        this.authservice.setLoggedIn(true);
-        this.router.navigate(['/']);
-      },
-      error: (error) => {
-        console.error("Can't delete the user:", error);
-        this.errorService.changeData({code: error.status, message: "Your user could not be deleted"});
-        this.router.navigate(['/error']);
-      }
-    });
+  showDeleteModal(): void {
+    if(!this.showModal) {
+      this.showModal = true;
+      return;
+    }
+    this.showModal = false;
   }
 
   ngOnInit(): void {
@@ -90,6 +81,7 @@ export class PersonalpageComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error buscar el usuario:', error);
+          this.router.navigate(['/']);
         }
       });
     } else {

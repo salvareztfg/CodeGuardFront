@@ -33,6 +33,7 @@ export class TestsListComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error al obtener los problemas:', error);
+          this.router.navigate(['/']);
         },
       });
     }else{

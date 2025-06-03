@@ -36,6 +36,7 @@ export class ExercisePageSolutionsComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error al obtener las soluciones del problema:', error);
+          this.router.navigate(['/problem/'+routeId]);
         }
       });
       
@@ -46,6 +47,7 @@ export class ExercisePageSolutionsComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error al obtener los datos del problema:', error);
+          this.router.navigate(['/problem/'+routeId]);
         }
       });
     }
