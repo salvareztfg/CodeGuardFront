@@ -1,0 +1,44 @@
+.user-card {
+    border: 2px solid #6b5278;
+    background-color: #3b2148;
+    box-shadow: 0 0 20px rgba(219, 112, 112, 0.8);
+    color: #aeaeae;
+
+}
+.container {
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.card-header {
+    background-color: #5c4767;
+}
+
+.card-wrapper {
+    width: 30%;
+    z-index: 2;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.delete {
+    box-shadow: 0 0 10px rgb(219, 112, 112);
+    border: 2px solid #dc3545; 
+    background-color: #dc3545; 
+    color: #ffffff; 
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.delete:hover {
+    animation: blink 5s infinite;
+    transform: scale(1.05);
+    box-shadow: 0 0 13px rgba(220, 53, 69, 0.8); 
+}
+
+.buttons-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

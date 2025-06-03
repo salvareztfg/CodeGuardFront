@@ -64,6 +64,7 @@ export class TestPageComponent implements OnInit, AfterViewChecked {
         },
         error: (error) => {
           console.error('Error al obtener el problema:', error);
+          this.router.navigate(['/testslist']);
         }
       });
     }
@@ -117,7 +118,6 @@ export class TestPageComponent implements OnInit, AfterViewChecked {
   }
 
   convertMarkdownToHtml(markdown: string): string {
-    
     marked.setOptions({ async: false });
     return marked(markdown) as string;
   }

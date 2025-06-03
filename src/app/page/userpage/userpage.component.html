@@ -1,3 +1,10 @@
+<app-delete-modal *ngIf="showModal"
+  (EmitterClose)="showDeleteModal()"
+  [userPage]="true"
+  [UserInfo]="user"
+> 
+</app-delete-modal>
+<div *ngIf="showModal" class="opaque-bg"></div>
 <div class="container mt-4">
   <div class="row">
     <div class="col-12 mb-4">
@@ -13,7 +20,7 @@
             </div>
             <div>
               @if (adminCheck === 'true') {
-                <div class="btn delete register" (click)="deleteThisUser()">Delete Account</div>
+                <div class="btn delete register" (click)="showDeleteModal()">Delete Account</div>
               }
             </div>
           </div>

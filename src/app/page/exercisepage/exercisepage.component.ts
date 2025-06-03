@@ -61,6 +61,7 @@ export class ExercisePageComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error al obtener el problema:', error);
+          this.router.navigate(['/exerciselist']);
         }
       });
   

@@ -10,12 +10,13 @@ import { AuthService } from '../../service/auth.service';
 import { ErrorService } from '../../service/error.service';
 import { ExerciseService } from '../../service/exercise.service';
 import { UserService } from '../../service/user.service';
+import { DeleteModalComponent } from "../../delete-modal/delete-modal.component";
 
 
 @Component({
   selector: 'app-userpage',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterLink],
+  imports: [FormsModule, CommonModule, RouterLink, DeleteModalComponent],
   templateUrl: './userpage.component.html',
   styleUrl: './userpage.component.css'
 })
@@ -29,6 +30,7 @@ export class UserPageComponent implements OnInit {
 
   adminCheck: string = "";
   exercisenames: ExerciseResponse[] = [];
+  showModal: boolean = false;
 
   constructor(
     private userservice: UserService,
@@ -80,18 +82,12 @@ export class UserPageComponent implements OnInit {
     }
   }
 
-  deleteThisUser(): void {
-    this.userservice.deleteUser(this.user.username).subscribe({
-      next: (response) => {
-        console.log("Deleted user:", response);
-        this.router.navigate(['/']);
-      },
-      error: (error) => {
-        console.error("Can't delete the user:", error);
-        this.errorService.changeData({code: error.status, message: "You can't delete the user"});
-        this.router.navigate(['/error']);
-      }
-    });
+  showDeleteModal(): void {
+    if(!this.showModal) {
+      this.showModal = true;
+      return;
+    }
+    this.showModal = false;
   }
 
   savePrivileges(): void {

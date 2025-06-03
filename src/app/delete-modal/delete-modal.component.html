@@ -1,0 +1,16 @@
+<div class="card-wrapper container">
+    <div class="card user-card">
+            <div class="card-header text-center text-light">
+              <h5>AVADA KEDAVRA</h5>
+            </div>
+            <div class="card-body">
+              <p class="f-17" *ngIf="!userPage">Are you sure you want to delete your account?</p>
+              <p class="f-17" *ngIf="userPage">Are you sure you want to delete <b>{{UserInfo.username}}</b> account?</p>
+              <div class="buttons-wrapper">
+                <div class="btn register" (click)="closeModal()">Close</div>
+                <div class="btn delete register" *ngIf="!userPage" (click)="deleteThisUser()">Delete Account</div>
+                <div class="btn delete register" *ngIf="userPage" (click)="deleteUser()">Delete Account</div>
+              </div>
+            </div>
+    </div>
+</div>

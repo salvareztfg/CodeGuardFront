@@ -3,6 +3,14 @@
     color: #aeaeae;
 }
 
+.opaque-bg {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
 .delete {
     box-shadow: 0 0 10px rgb(219, 112, 112);
     border: 2px solid #dc3545; 
