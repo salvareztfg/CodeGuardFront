@@ -26,20 +26,22 @@ export class HeaderComponent implements OnInit {
   isCreator = localStorage.getItem("creator");
 
   ngOnInit(): void {
-    this.loggedUsername = localStorage.getItem("loggedUsername")||"";
+    this.loggedUsername = localStorage.getItem("loggedUsername") || '';
     this.authService.isLoggedIn$.subscribe(
       a => { if (a) this.updateHeader(); }
     );
-    this.userService.getUser(this.loggedUsername).subscribe({
-      next: data =>{
-        localStorage.setItem("tester", data.tester.toString());
-        localStorage.setItem("creator", data.creator.toString());
-        this.updateHeader();
-      },
-      error: error=>{
-        console.error("No username found");
-      }
-    });
+    if(this.loggedUsername) {
+      this.userService.getUser(this.loggedUsername).subscribe({
+        next: data =>{
+          localStorage.setItem("tester", data.tester.toString());
+          localStorage.setItem("creator", data.creator.toString());
+          this.updateHeader();
+        },
+        error: error=>{
+          console.error("No username found");
+        }
+      });
+    }
   }
 
   updateHeader() {
