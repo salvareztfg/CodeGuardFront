@@ -12,13 +12,13 @@
             <div class="error-feedback">
               @if (signupForm.controls['username'].touched &&
               signupForm.controls['username'].hasError('required')) {
-              <span>Please enter a valid name</span>
+              <span>Please enter a valid username</span>
               }
             </div>
             <div class="error-feedback">
               @if (signupForm.controls['username'].touched &&
               signupForm.controls['username'].hasError('pattern')) {
-              <span>Please enter a valid name</span>
+              <span>Please enter a valid username (3 letters atleast)</span>
               }
             </div>
           </div>
@@ -26,8 +26,8 @@
             <input type="password" formControlName="password" placeholder="Password"/>
             <div class="error-feedback">
               @if (signupForm.controls['password'].touched &&
-              signupForm.controls['password'].hasError('required')) {
-              <span>Please enter a valid password</span>
+              signupForm.controls['password'].hasError('pattern')) {
+              <span>Please enter a valid password (8 letters and 1 number atleast)</span>
               }
             </div>
           </div>

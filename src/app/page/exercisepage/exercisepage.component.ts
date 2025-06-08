@@ -47,7 +47,7 @@ export class ExercisePageComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    const loggedUsername = localStorage.getItem("loggedUsername");
+    const loggedUsername = sessionStorage.getItem("loggedUsername");
     if (id && loggedUsername) {
       this.exerciseService.getProblem(id).subscribe({
         next: (data) => {
@@ -128,9 +128,22 @@ export class ExercisePageComponent implements OnInit {
       });
     }
   }
+  
   convertMarkdownToHtml(markdown: string): string {
-    
     marked.setOptions({ async: false });
     return marked(markdown) as string;
+  }
+
+  handleTab(event: KeyboardEvent){
+    if (event.key === 'Tab'){
+      event.preventDefault();
+      const textarea = event.target as HTMLTextAreaElement;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      textarea.value=
+        textarea.value.substring(0,start) + '\t' + textarea.value.substring(end);
+
+      textarea.selectionStart = textarea.selectionEnd = start + 1;
+    }
   }
 }

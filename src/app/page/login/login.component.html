@@ -18,16 +18,16 @@
             <div class="error-feedback">
               @if (loginForm.controls['username'].touched &&
               loginForm.controls['username'].hasError('pattern')) {
-              <span>Please enter a valid name</span>
+              <span>Please enter a valid name (3 letters atleast)</span>
               }
             </div>
           </div>
           <div class="mb-3">
-            <input type="password" formControlName="password" placeholder="password"/>
+            <input type="password" formControlName="password" placeholder="Password"/>
             <div class="error-feedback">
               @if (loginForm.controls['password'].touched &&
               loginForm.controls['password'].hasError('required')) {
-              <span>Please enter a valid password</span>
+              <span>Please enter a valid password (8 letters and 1 number atleast)</span>
               }
             </div>
           </div>

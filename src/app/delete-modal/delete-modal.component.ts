@@ -21,6 +21,7 @@ export class DeleteModalComponent {
     creator: false,
     exercises: []
   };
+  @Input() isHeader: boolean = false;
   @Input() userPage: boolean = false;
   @Output() EmitterClose = new EventEmitter();
   
@@ -36,7 +37,7 @@ export class DeleteModalComponent {
   deleteThisUser(): void {
     this.userservice.deleteLoggedUser().subscribe({
       next: (response) => {
-        localStorage.clear();
+        sessionStorage.clear();
         console.log("Deleted user:", response);
         this.authservice.setLoggedIn(true);
         this.closeModal();

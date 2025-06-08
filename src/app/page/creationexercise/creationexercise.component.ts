@@ -33,7 +33,7 @@ export class CreationExerciseComponent implements OnInit{
   }
   
   ngOnInit(): void {
-    if(!localStorage.getItem("JWT")){
+    if(!sessionStorage.getItem("JWT")){
       this.router.navigate(['/login']);
     }
   }
@@ -46,7 +46,7 @@ export class CreationExerciseComponent implements OnInit{
       this.exerciseservice.postProblem(this.exercisedata).subscribe({       
          next: (data)=>{
            console.log("Problema creado: ",data);
-           if(localStorage.getItem("tester")=="true"){
+           if(sessionStorage.getItem("tester")=="true"){
             this.router.navigate(['/test/'+data.id]); 
            }
            else{
@@ -68,6 +68,19 @@ export class CreationExerciseComponent implements OnInit{
     const textarea = event.target as HTMLTextAreaElement;
     textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight + 'px';
+  }
+
+  handleTab(event: KeyboardEvent){
+    if (event.key === 'Tab'){
+      event.preventDefault();
+      const textarea = event.target as HTMLTextAreaElement;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      textarea.value=
+        textarea.value.substring(0,start) + '\t' + textarea.value.substring(end);
+
+      textarea.selectionStart = textarea.selectionEnd = start + 1;
+    }
   }
   
 }

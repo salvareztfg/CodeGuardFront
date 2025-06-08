@@ -49,8 +49,8 @@ export class TestPageComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    const loggedUsername = localStorage.getItem("loggedUsername");
-    if(!localStorage.getItem("JWT")){
+    const loggedUsername = sessionStorage.getItem("loggedUsername");
+    if(!sessionStorage.getItem("JWT")){
       this.router.navigate(['/login']);
     }
     if (id && loggedUsername) {
@@ -120,5 +120,18 @@ export class TestPageComponent implements OnInit, AfterViewChecked {
   convertMarkdownToHtml(markdown: string): string {
     marked.setOptions({ async: false });
     return marked(markdown) as string;
+  }
+
+  handleTab(event: KeyboardEvent){
+    if (event.key === 'Tab'){
+      event.preventDefault();
+      const textarea = event.target as HTMLTextAreaElement;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      textarea.value=
+        textarea.value.substring(0,start) + '\t' + textarea.value.substring(end);
+
+      textarea.selectionStart = textarea.selectionEnd = start + 1;
+    }
   }
 }
