@@ -10,12 +10,16 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:application",
+        "build": {          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/code-guard-front",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
+            "optimization": true,
+            "outputHashing": "all",
+            "sourceMap": false,
+            "namedChunks": true,
+            "deleteOutputPath": true,
             "polyfills": [
               "zone.js"
             ],
@@ -43,12 +47,24 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kB",
                   "maximumError": "4kB"
-                }
-              ],
-              "outputHashing": "all"
+                }              ],
+              "outputHashing": "all",
+              "optimization": true,
+              "sourceMap": false,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": true,
+              "aot": true
             },
             "development": {
-              "optimization": false,
+              "optimization": {
+              "scripts": true,
+              "styles": {
+                "minify": true,
+                "inlineCritical": true
+              }
+            },
               "extractLicenses": false,
               "sourceMap": true
             }

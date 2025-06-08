@@ -1,0 +1,20 @@
+<div class="card-wrapper container">
+    <div class="card user-card">
+            <div class="card-header text-center text-light">
+              <h5 *ngIf="!isHeader">AVADA KEDAVRA</h5>
+              <h5 *ngIf="isHeader">USER NOT FOUND</h5>
+            </div>
+            <div class="card-body">
+              <div *ngIf="!isHeader">
+                <p class="f-17" *ngIf="!userPage">Are you sure you want to delete your account?</p>
+                <p class="f-17" *ngIf="userPage">Are you sure you want to delete <b>{{UserInfo.username}}</b> account?</p>
+              </div>
+              <p class="f-17" *ngIf="isHeader">The user you are looking for could not be found. Please verify the username and try again.</p>
+              <div class="buttons-wrapper" [ngClass]="{'j-center' : isHeader}" >
+                <div class="btn register" (click)="closeModal()">Close</div>
+                <div class="btn delete register" *ngIf="!userPage && !isHeader" (click)="deleteThisUser()">Delete Account</div>
+                <div class="btn delete register" *ngIf="userPage && !isHeader" (click)="deleteUser()">Delete Account</div>
+              </div>
+            </div>
+    </div>
+</div>
