@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   showModal: boolean = false;
   
   user = this.fb.group({
-    username: ['',[Validators.required, Validators.pattern(/^(?=.*\d).{8,}$/)],],
+    username: ['',[Validators.required, Validators.pattern(/^[a-zA-Z]{3,}\w*$/)],],
   });
 
   loggedUsername = sessionStorage.getItem("loggedUsername");
