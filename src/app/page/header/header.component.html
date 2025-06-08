@@ -1,3 +1,8 @@
+<app-delete-modal *ngIf="showModal"
+  (EmitterClose)="showUserModal()"
+  [isHeader] ="true"
+> 
+</app-delete-modal>
 <header class="p-2 m-2">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center">

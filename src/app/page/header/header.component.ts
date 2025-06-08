@@ -4,37 +4,40 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../service/auth.service';
 import { UserService } from '../../service/user.service';
+import { DeleteModalComponent } from "../../delete-modal/delete-modal.component";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [RouterLink, FormsModule, ReactiveFormsModule, CommonModule, DeleteModalComponent],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
 
   constructor(private authService: AuthService, private userService: UserService, private router: Router, private fb: FormBuilder) {}
+
+  showModal: boolean = false;
   
   user = this.fb.group({
-    username: ['',[Validators.required, Validators.pattern(/^[a-zA-Z]{3,}\w*$/)],],
+    username: ['',[Validators.required, Validators.pattern(/^(?=.*\d).{8,}$/)],],
   });
 
-  loggedUsername = localStorage.getItem("loggedUsername");
-  loggedUser = localStorage.getItem("JWT");
-  isTester = localStorage.getItem("tester");
-  isCreator = localStorage.getItem("creator");
+  loggedUsername = sessionStorage.getItem("loggedUsername");
+  loggedUser = sessionStorage.getItem("JWT");
+  isTester = sessionStorage.getItem("tester");
+  isCreator = sessionStorage.getItem("creator");
 
   ngOnInit(): void {
-    this.loggedUsername = localStorage.getItem("loggedUsername") || '';
+    this.loggedUsername = sessionStorage.getItem("loggedUsername") || '';
     this.authService.isLoggedIn$.subscribe(
       a => { if (a) this.updateHeader(); }
     );
     if(this.loggedUsername) {
       this.userService.getUser(this.loggedUsername).subscribe({
         next: data =>{
-          localStorage.setItem("tester", data.tester.toString());
-          localStorage.setItem("creator", data.creator.toString());
+          sessionStorage.setItem("tester", data.tester.toString());
+          sessionStorage.setItem("creator", data.creator.toString());
           this.updateHeader();
         },
         error: error=>{
@@ -45,14 +48,14 @@ export class HeaderComponent implements OnInit {
   }
 
   updateHeader() {
-    this.loggedUsername = localStorage.getItem("loggedUsername");
-    this.loggedUser = localStorage.getItem("JWT");
-    this.isTester = localStorage.getItem("tester");
-    this.isCreator = localStorage.getItem("creator");
+    this.loggedUsername = sessionStorage.getItem("loggedUsername");
+    this.loggedUser = sessionStorage.getItem("JWT");
+    this.isTester = sessionStorage.getItem("tester");
+    this.isCreator = sessionStorage.getItem("creator");
   }
 
   logout() {
-    localStorage.clear();
+    sessionStorage.clear();
     this.updateHeader();
   }
 
@@ -66,10 +69,17 @@ export class HeaderComponent implements OnInit {
         },
         error: (error) => {
           console.error("El usuario no existe: ", error);
-          //document.getElementById("search-bar")?.classList.add("search-error");
-          alert("El usuario no existe");
+          this.showUserModal();
         }
       });
     }
+  }
+
+  showUserModal(): void {
+    if(!this.showModal) {
+      this.showModal = true;
+      return;
+    }
+    this.showModal = false;
   }
 }

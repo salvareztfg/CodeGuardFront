@@ -23,7 +23,7 @@ export class LoginComponent {
   ) {}
 
   loginForm = this.fb.group({
-    username: ['',[Validators.required, Validators.pattern(/^[a-zA-Z]{3,}\w*$/)],],
+    username: ['',[Validators.required, Validators.pattern(/^(?=.*\d).{8,}$/)],],
     password: ['', Validators.required],
   });
 
@@ -40,13 +40,13 @@ export class LoginComponent {
         response=>{
           console.log(`Cuerpo de la respuesta API: ${response.body}`);
           if (response.headers.get('Authorization')) {
-            localStorage.setItem('JWT', response.headers.get('Authorization'));
-            localStorage.setItem('loggedUsername', response.body.username);
+            sessionStorage.setItem('JWT', response.headers.get('Authorization'));
+            sessionStorage.setItem('loggedUsername', response.body.username);
             this.userService.getUser(response.body.username).subscribe(
               response=>{
                 console.log(response)
-                localStorage.setItem('tester', response.tester.toString());
-                localStorage.setItem('creator', response.creator.toString());
+                sessionStorage.setItem('tester', response.tester.toString());
+                sessionStorage.setItem('creator', response.creator.toString());
                 //Se establece que esta logeado para actualizar la parte de la izquierda del header
                 this.authService.setLoggedIn(true); 
               },
@@ -54,7 +54,7 @@ export class LoginComponent {
                 console.error(`Error trying to search the user: ${error}`)
               }
             )
-            localStorage.setItem('admin', response.body.admin.toString());
+            sessionStorage.setItem('admin', response.body.admin.toString());
             //Se establece que esta logeado para actualizar la parte de la derecha del header
             this.authService.setLoggedIn(true);
             this.loginForm.reset();

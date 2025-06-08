@@ -1,5 +1,6 @@
 export const environment = {
     production: false,
     environmentName: 'develop',
-    apiUrl: 'http://13.38.8.151/code-guard'
+    apiUrl: 'https://13.38.8.151/code-guard'
+    // apiUrl: 'http://localhost:8080/code-guard'
   };
