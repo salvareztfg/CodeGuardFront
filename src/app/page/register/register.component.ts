@@ -34,7 +34,7 @@ export class RegisterComponent {
         console.log(`Sending data: ${JSON.stringify(this.signupForm.value)}`);
         let signupRequest: UserRequest = {
           username: this.signupForm.value.username,
-          password: this.signupForm.value.password,
+          password: btoa(encodeURIComponent(this.signupForm.value.password!))
         };
 
         this.userService.registerUser(signupRequest).subscribe(

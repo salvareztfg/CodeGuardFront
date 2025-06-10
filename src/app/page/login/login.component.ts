@@ -32,8 +32,8 @@ export class LoginComponent {
   onSubmit(){
     if (this.loginForm.valid){
       let signupRequest: UserRequest = {
-        username: this.loginForm.value.username,
-        password: this.loginForm.value.password,
+        username: this.loginForm.value.username,        
+        password: btoa(encodeURIComponent(this.loginForm.value.password!)),
       };
 
       this.userService.loginUser(signupRequest).subscribe(
